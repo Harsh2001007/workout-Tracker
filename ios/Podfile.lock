@@ -1,9 +1,11 @@
 PODS:
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
-  - EXConstants (17.1.6):
+  - EXApplication (6.1.5):
     - ExpoModulesCore
-  - Expo (53.0.12):
+  - EXConstants (17.1.7):
+    - ExpoModulesCore
+  - Expo (53.0.20):
     - DoubleConversion
     - ExpoModulesCore
     - glog
@@ -30,19 +32,21 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ExpoAsset (11.1.5):
+  - ExpoAsset (11.1.7):
     - ExpoModulesCore
-  - ExpoFileSystem (18.1.10):
+  - ExpoCrypto (14.1.5):
     - ExpoModulesCore
-  - ExpoFont (13.3.1):
+  - ExpoFileSystem (18.1.11):
     - ExpoModulesCore
-  - ExpoHead (5.1.0):
+  - ExpoFont (13.3.2):
+    - ExpoModulesCore
+  - ExpoHead (5.1.4):
     - ExpoModulesCore
   - ExpoKeepAwake (14.1.4):
     - ExpoModulesCore
-  - ExpoLinking (7.1.5):
+  - ExpoLinking (7.1.7):
     - ExpoModulesCore
-  - ExpoModulesCore (2.4.0):
+  - ExpoModulesCore (2.5.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -67,7 +71,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ExpoSplashScreen (0.30.9):
+  - ExpoSplashScreen (0.30.10):
+    - ExpoModulesCore
+  - ExpoWebBrowser (14.2.0):
     - ExpoModulesCore
   - fast_float (6.1.4)
   - FBLazyVector (0.79.4)
@@ -1978,9 +1984,11 @@ PODS:
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - EXApplication (from `../node_modules/expo-application/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoCrypto (from `../node_modules/expo-crypto/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoHead (from `../node_modules/expo-router/ios`)
@@ -1988,6 +1996,7 @@ DEPENDENCIES:
   - ExpoLinking (from `../node_modules/expo-linking/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
   - ExpoSplashScreen (from `../node_modules/expo-splash-screen/ios`)
+  - ExpoWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - fast_float (from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
@@ -2071,12 +2080,16 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  EXApplication:
+    :path: "../node_modules/expo-application/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   Expo:
     :path: "../node_modules/expo"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoCrypto:
+    :path: "../node_modules/expo-crypto/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -2091,6 +2104,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-modules-core"
   ExpoSplashScreen:
     :path: "../node_modules/expo-splash-screen/ios"
+  ExpoWebBrowser:
+    :path: "../node_modules/expo-web-browser/ios"
   fast_float:
     :podspec: "../node_modules/react-native/third-party-podspecs/fast_float.podspec"
   FBLazyVector:
@@ -2238,16 +2253,19 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
-  EXConstants: 9f310f44bfedba09087042756802040e464323c0
-  Expo: 96f7935e5af791080d758fbfda1f7c10e827e588
-  ExpoAsset: 3bc9adb7dbbf27ae82c18ca97eb988a3ae7e73b1
-  ExpoFileSystem: c36eb8155eb2381c83dda7dc210e3eec332368b6
-  ExpoFont: abbb91a911eb961652c2b0a22eef801860425ed6
-  ExpoHead: 1e65b47330de2164c628da2bddf73d57cac123bf
+  EXApplication: 1e06972201838375ca1ec1ba34d586a98a5dc718
+  EXConstants: 98bcf0f22b820f9b28f9fee55ff2daededadd2f8
+  Expo: a40d525c930dd1c8a158e082756ee071955baccb
+  ExpoAsset: ef06e880126c375f580d4923fdd1cdf4ee6ee7d6
+  ExpoCrypto: a9f1d75baeea6ef8b03c1660621585196c382e85
+  ExpoFileSystem: 7f92f7be2f5c5ed40a7c9efc8fa30821181d9d63
+  ExpoFont: cf508bc2e6b70871e05386d71cab927c8524cc8e
+  ExpoHead: a7b66cbaeeb51f4a85338d335a0f5467e29a2c90
   ExpoKeepAwake: bf0811570c8da182bfb879169437d4de298376e7
-  ExpoLinking: b85ff4eafeae6fc638c6cace60007ae521af0ef4
-  ExpoModulesCore: d431ffe83c8673d02cb38425594a5f5480fd3061
-  ExpoSplashScreen: 03ef991c0f9575a10269e08083cb4bd10e0989bc
+  ExpoLinking: d5c183998ca6ada66ff45e407e0f965b398a8902
+  ExpoModulesCore: 00a1b5c73248465bd0b93f59f8538c4573dac579
+  ExpoSplashScreen: 0ad5acac1b5d2953c6e00d4319f16d616f70d4dd
+  ExpoWebBrowser: dc39a88485f007e61a3dff05d6a75f22ab4a2e92
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: 15c28682af535aa55b9b31e64deff54b7ed7d453
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
