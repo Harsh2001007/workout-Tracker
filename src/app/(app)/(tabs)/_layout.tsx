@@ -63,7 +63,7 @@ const Layout = () => {
       />
 
       <Tabs.Screen
-        name="profile/index"
+        name="profile"
         options={{
           headerShown: false,
           title: "Profile",
