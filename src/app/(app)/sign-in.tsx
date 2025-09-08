@@ -80,6 +80,15 @@ export default function Page() {
             <Text className="text-sm font-medium text-gray-700 mb-2">
               Email
             </Text>
+            <View className="flex-row items-center bg-gray-50 rounded-xl px-4 py-4 border border-gray-200">
+              <Ionicons name="mail-outline" size={20} color="#6B7280" />
+              <TextInput
+                autoCapitalize="none"
+                value={emailAddress}
+                placeholder="Enter your email"
+                placeholderTextColor="#9CA3AF"
+              />
+            </View>
           </View>
         </View>
 
