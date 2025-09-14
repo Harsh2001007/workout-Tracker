@@ -4,6 +4,7 @@ import * as AuthSession from "expo-auth-session";
 import { useSSO } from "@clerk/clerk-expo";
 import { View, Button, TouchableOpacity, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 export const useWarmUpBrowser = () => {
   useEffect(() => {
