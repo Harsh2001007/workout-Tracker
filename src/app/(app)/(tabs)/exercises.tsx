@@ -5,11 +5,11 @@ import {
   TextInput,
   TouchableOpacity,
   RefreshControl,
+  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { FlatList } from "react-native-reanimated/lib/typescript/Animated";
 
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");
