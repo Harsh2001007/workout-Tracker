@@ -30,7 +30,7 @@ export default defineType({
     defineField({
       name: 'exercises',
       title: 'Workout Exercises',
-      description: 'The exercise performed in this workout with sets, reps and weights',
+      description: 'The exercise performed in this workout with sets, reps and weights.',
       type: 'array',
       of: [
         defineArrayMember({
