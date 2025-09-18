@@ -42,7 +42,7 @@ const Exerceises = () => {
           Exercise Library
         </Text>
         <Text className="text-gray-600 mt-1">
-          Discover and master new exercises
+          Discover and master new exercises.
         </Text>
 
         {/* Searchbar  */}
