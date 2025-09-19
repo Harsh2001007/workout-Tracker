@@ -7,9 +7,24 @@ import {
   RefreshControl,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { defineQuery } from "groq";
+import groq from "groq";
+import { client } from "@/lib/sanity/client";
+import ExerciseCard from "@/app/components/ExerciseCard";
+import { Exercise } from "sanity/sanity.types";
+
+//Query
+
+export const exercisesQuery = defineQuery(`*[_type == "exercise"]{
+  ...
+  }`);
+
+// export const exercisesQuery = groq`*[_type == "exercise"]{
+// ...
+// }`;
 
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,6 +42,17 @@ const Exerceises = () => {
       console.log("error fetching exercises : ", err);
     }
   };
+
+  useEffect(() => {
+    fetchExercise();
+  }, []);
+
+  useEffect(() => {
+    const filtered = exercises.filter((exercise: Exercise) =>
+      exercise.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredExercises(filtered);
+  }, [searchQuery, exercises]);
 
   const onRefresh = async () => {
     setRefresing(true);
@@ -67,7 +93,7 @@ const Exerceises = () => {
       {/* Exercise List  */}
 
       <FlatList
-        data={[]}
+        data={filteredExercises}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ padding: 24 }}
