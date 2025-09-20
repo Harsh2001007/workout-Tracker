@@ -94,13 +94,13 @@ const Exerceises = () => {
 
       <FlatList
         data={filteredExercises}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ padding: 24 }}
         renderItem={({ item }) => (
           <ExerciseCard
             item={item}
-            onPress={() => router.push(`/exercise-detail?id=${item.id}`)}
+            onPress={() => router.push(`/exercise-detail?id=${item._id}`)}
           />
         )}
         refreshControl={

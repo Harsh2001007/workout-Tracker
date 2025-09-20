@@ -10,6 +10,19 @@ interface ExerciseCardProps {
   showChevron?: boolean;
 }
 
+const getDifficultyColor = (difficulty) => {
+  switch (difficulty) {
+    case "beginner":
+      return "bg-green-500";
+    case "intermediate":
+      return "bg-yellow-500";
+    case "advanced":
+      return "bg-red-500";
+    default:
+      return "bg-gray-500";
+  }
+};
+
 export default function ExerciseCard({
   item,
   onPress,
@@ -33,6 +46,33 @@ export default function ExerciseCard({
               <Ionicons name="fitness" size={24} color="white" />
             </View>
           )}
+        </View>
+        <View className="flex-1 justify-between">
+          <View>
+            <Text className="text-lg font-bold text-gray-900 mb-1">
+              {item.name}
+            </Text>
+            <Text className="text-sm  text-gray-600 mb-2" numberOfLines={2}>
+              {item.description || "No Description Available"}
+            </Text>
+          </View>
+
+          <View className="flex-row items-center justify-between">
+            <View
+              className={`px-3 py-1 rounded-full ${getDifficultyColor(
+                item.difficulty
+              )}`}
+            >
+              <Text className="text-xs font-semibold text-white">
+                {item.difficulty}
+              </Text>
+            </View>
+            {showChevron && (
+              <TouchableOpacity className="p-2">
+                <Ionicons name="chevron-forward" size={20} color="#6B7280" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       </View>
     </TouchableOpacity>
