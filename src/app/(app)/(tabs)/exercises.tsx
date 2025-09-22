@@ -22,10 +22,6 @@ export const exercisesQuery = defineQuery(`*[_type == "exercise"]{
   ...
   }`);
 
-// export const exercisesQuery = groq`*[_type == "exercise"]{
-// ...
-// }`;
-
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
