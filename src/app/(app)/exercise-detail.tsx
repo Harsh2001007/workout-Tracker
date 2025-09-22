@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -26,7 +27,10 @@ export default function ExerciseDetail() {
           <Ionicons name="close" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <Text>exercise-detail : {id}</Text>
+      <ScrollView
+        className="flex-1"
+        showsHorizontalScrollIndicator={false}
+      ></ScrollView>
     </SafeAreaView>
   );
 }
