@@ -189,8 +189,26 @@ export type AllSanitySchemaTypes = Workout | Exercise | SanityImagePaletteSwatch
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../src/app/(app)/(tabs)/exercises.tsx
 // Variable: exercisesQuery
-// Query: *[_type == "exercise"]{  ...  }
+// Query: *[_type == "exercise"]{  _id,  name,  description,  difficulty,  image { asset->{url}, alt },  videoUrl,  isActive}
 export type ExercisesQueryResult = Array<{
+  _id: string;
+  name: string | null;
+  description: string | null;
+  difficulty: "advanced" | "beginner" | "intermediate" | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+    alt: string | null;
+  } | null;
+  videoUrl: string | null;
+  isActive: boolean | null;
+}>;
+
+// Source: ../src/app/(app)/exercise-detail.tsx
+// Variable: singleExerciseQuery
+// Query: *[_type == "exercise" && _id == $id][0]
+export type SingleExerciseQueryResult = {
   _id: string;
   _type: "exercise";
   _createdAt: string;
@@ -214,12 +232,13 @@ export type ExercisesQueryResult = Array<{
   };
   videoUrl?: string;
   isActive?: boolean;
-}>;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"exercise\"]{\n  ...\n  }": ExercisesQueryResult;
+    "*[_type == \"exercise\"]{\n  _id,\n  name,\n  description,\n  difficulty,\n  image { asset->{url}, alt },\n  videoUrl,\n  isActive\n}": ExercisesQueryResult;
+    "*[_type == \"exercise\" && _id == $id][0]": SingleExerciseQueryResult;
   }
 }

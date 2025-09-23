@@ -5,7 +5,7 @@ export const config = {
   projectId: "po9c2cgj",
   dataset: "production",
   apiVersion: "2024-01-01",
-  useCdn: true,
+  useCdn: false,
 };
 
 export const client = createClient(config);
