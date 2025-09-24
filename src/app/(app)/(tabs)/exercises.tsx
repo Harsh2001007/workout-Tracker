@@ -17,20 +17,10 @@ import ExerciseCard from "@/app/components/ExerciseCard";
 import { Exercise } from "sanity/sanity.types";
 
 //Query
-
-export const exercisesQuery = groq`*[_type == "exercise"]{
-  _id,
-  name,
-  description,
-  difficulty,
-  image { asset->{url}, alt },
-  videoUrl,
-  isActive
-}`;
-
-export const exercisesQueryMain = defineQuery(`*[_type == "exercise"]{
+export const exerciseQuery = defineQuery(`*[_type == "exercise"]{
   ...
   }`);
+
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -40,7 +30,7 @@ const Exerceises = () => {
 
   const fetchExercise = async () => {
     try {
-      const exercises = await client.fetch(exercisesQueryMain);
+      const exercises = await client.fetch(exerciseQuery);
       setExercises(exercises);
       setFilteredExercises(exercises);
     } catch (err) {

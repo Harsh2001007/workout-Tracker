@@ -188,21 +188,32 @@ export type SanityAssetSourceData = {
 export type AllSanitySchemaTypes = Workout | Exercise | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../src/app/(app)/(tabs)/exercises.tsx
-// Variable: exercisesQuery
-// Query: *[_type == "exercise"]{  _id,  name,  description,  difficulty,  image { asset->{url}, alt },  videoUrl,  isActive}
-export type ExercisesQueryResult = Array<{
+// Variable: exerciseQuery
+// Query: *[_type == "exercise"]{  ...  }
+export type ExerciseQueryResult = Array<{
   _id: string;
-  name: string | null;
-  description: string | null;
-  difficulty: "advanced" | "beginner" | "intermediate" | null;
-  image: {
-    asset: {
-      url: string | null;
-    } | null;
-    alt: string | null;
-  } | null;
-  videoUrl: string | null;
-  isActive: boolean | null;
+  _type: "exercise";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  description?: string;
+  difficulty?: "advanced" | "beginner" | "intermediate";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  videoUrl?: string;
+  isActive?: boolean;
 }>;
 
 // Source: ../src/app/(app)/exercise-detail.tsx
@@ -238,7 +249,7 @@ export type SingleExerciseQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"exercise\"]{\n  _id,\n  name,\n  description,\n  difficulty,\n  image { asset->{url}, alt },\n  videoUrl,\n  isActive\n}": ExercisesQueryResult;
+    "*[_type == \"exercise\"]{\n  ...\n  }": ExerciseQueryResult;
     "*[_type == \"exercise\" && _id == $id][0]": SingleExerciseQueryResult;
   }
 }
