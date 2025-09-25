@@ -34,7 +34,7 @@ const Exerceises = () => {
       setExercises(exercises);
       setFilteredExercises(exercises);
     } catch (err) {
-      console.log("error fetching exercises : ", err);
+      console.log("error fetching exercises: ", err);
     }
   };
 
