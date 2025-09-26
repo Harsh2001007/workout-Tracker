@@ -21,6 +21,8 @@ export const exerciseQuery = defineQuery(`*[_type == "exercise"]{
   ...
   }`);
 
+export const getApi = "http://localhost:3000/api/v1/exercise";
+
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -30,9 +32,12 @@ const Exerceises = () => {
 
   const fetchExercise = async () => {
     try {
-      const exercises = await client.fetch(exerciseQuery);
-      setExercises(exercises);
-      setFilteredExercises(exercises);
+      const res = await fetch(getApi);
+      const data = await res.json();
+
+      const list = data.result || []; // safely extract array
+      setExercises(list);
+      setFilteredExercises(list);
     } catch (err) {
       console.log("error fetching exercises: ", err);
     }

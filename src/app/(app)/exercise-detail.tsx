@@ -44,33 +44,54 @@ const singleExerciseQuery = defineQuery(
   `*[_type == "exercise" && _id == $id][0]`
 );
 
+const getApi = "http://localhost:3000/api/v1/exercise";
+
 export default function ExerciseDetail() {
   const router = useRouter();
-  const [exercise, setExercise] = useState(null);
+  const [exercise, setExercise] = useState<null | any>(null);
   const [loading, setLoading] = useState(true);
-  const [aiGuidance, setAiGuidance] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
 
   const { id } = useLocalSearchParams<{
     id: string;
   }>();
 
-  useEffect(() => {
-    const fetchExercise = async () => {
-      if (!id) return;
+  console.log(`type check -> ${getApi}/${id}`);
 
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchExercise = async () => {
       try {
-        const exerciseData = await client.fetch(singleExerciseQuery, { id });
-        setExercise(exerciseData);
-        console.log(exerciseData);
+        const res = await fetch(`http://localhost:3000/api/v1/exercise/${id}`);
+        const data = await res.json();
+        console.log("Fetched Exercise Data:", data);
+
+        setExercise(data.result || null);
       } catch (err) {
-        console.log("error fetching exercises", err);
+        console.error("Error fetching exercise:", err);
       } finally {
         setLoading(false);
       }
     };
+
     fetchExercise();
   }, [id]);
+
+  if (loading) {
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center">
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (!exercise) {
+    return (
+      <SafeAreaView className="flex-1 items-center justify-center">
+        <Text>Exercise not found</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -103,7 +124,7 @@ export default function ExerciseDetail() {
           <View className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></View>
         </View>
         <View className="px-6 py-6">
-          {/* <View className="flex-row items-center justify-between mb-4">
+          <View className="flex-row items-center justify-between mb-4">
             <View className="flex-1 mr-4">
               <Text className="text-3xl font-bold text-gray-800 mb-2">
                 {exercise.name}
@@ -118,7 +139,7 @@ export default function ExerciseDetail() {
                 </Text>
               </View>
             </View>
-          </View> */}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
