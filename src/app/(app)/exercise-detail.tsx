@@ -88,7 +88,7 @@ export default function ExerciseDetail() {
   if (!exercise) {
     return (
       <SafeAreaView className="flex-1 items-center justify-center">
-        <Text>Exercise not found</Text>
+        <Text>Exercise not found !</Text>
       </SafeAreaView>
     );
   }
