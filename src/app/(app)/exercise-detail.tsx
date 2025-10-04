@@ -140,6 +140,26 @@ export default function ExerciseDetail() {
               </View>
             </View>
           </View>
+
+          {/* Description  */}
+
+          <View className="mb-6">
+            <Text className="text-xl font-semibold text-gray-800 mb-3">
+              Description
+            </Text>
+            <Text className="text-gray-600 leading-6 text-base">
+              {exercise.description ||
+                "No description available for this exercise."}
+            </Text>
+          </View>
+
+          {/* Video Section  */}
+
+          {exercise.videoUrl && (
+            <View className="mb-6">
+              <Text>Video Tutorial</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
