@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Linking,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
@@ -50,6 +52,8 @@ export default function ExerciseDetail() {
   const router = useRouter();
   const [exercise, setExercise] = useState<null | any>(null);
   const [loading, setLoading] = useState(true);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiGuidance, setAiGuidance] = useState("");
 
   const { id } = useLocalSearchParams<{
     id: string;
@@ -64,7 +68,7 @@ export default function ExerciseDetail() {
       try {
         const res = await fetch(`http://localhost:3000/api/v1/exercise/${id}`);
         const data = await res.json();
-        console.log("Fetched Exercise Data:", data);
+        console.log("Fetched Exercise Data:", data.result.videoUrl);
 
         setExercise(data.result || null);
       } catch (err) {
@@ -157,9 +161,59 @@ export default function ExerciseDetail() {
 
           {exercise.videoUrl && (
             <View className="mb-6">
-              <Text>Video Tutorial</Text>
+              <Text className="text-xl font-semibold text-gray-800 mb-3">
+                Video Tutorial
+              </Text>
+              <TouchableOpacity
+                className="bg-red-500 rounded-xl p-4 flex-row items-center"
+                onPress={() => Linking.openURL(exercise.videoUrl)}
+              >
+                <View className="w-12 h-12 bg-white rounded-full items-center justify-center mr-4">
+                  <Ionicons name="play" size={20} color="#EF4444" />
+                </View>
+                <View>
+                  <Text className="text-white font-semibold text-lg">
+                    Watch Tutorial
+                  </Text>
+                  <Text className="text-red-100 text-sm">
+                    Learn Proper Form
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           )}
+
+          {/* AI Assistance  */}
+
+          {/* --- */}
+
+          {/* Acton Buttons  */}
+
+          <View className="mt-8 gap-2">
+            {/* AI Coach Button  */}
+            <TouchableOpacity
+              className={`rounded-xl py-4 items-center ${
+                aiLoading
+                  ? "bg-gray-400"
+                  : aiGuidance
+                  ? "bg-green-500"
+                  : "bg-blue-500"
+              }`}
+              // onPress={getAiGuidance}
+              disabled={aiLoading}
+            >
+              {aiLoading ? (
+                <View>
+                  <ActivityIndicator color="white" size="small" />
+                  <Text className="text-white font-bold text-lg ml-2">
+                    Loading...
+                  </Text>
+                </View>
+              ) : (
+                <Text>Hello</Text>
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
