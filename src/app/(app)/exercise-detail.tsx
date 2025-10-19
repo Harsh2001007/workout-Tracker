@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { client, urlFor } from "@/lib/sanity/client";
 import { Exercise } from "@/lib/sanity/types";
 import { defineQuery } from "groq";
+import Markdown from "react-native-markdown-display";
 
 const getDifficultyColor = (difficulty) => {
   switch (difficulty) {
@@ -80,6 +81,32 @@ export default function ExerciseDetail() {
 
     fetchExercise();
   }, [id]);
+
+  const getAiGuidance = async () => {
+    if (!exercise) return;
+    setAiLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:8081/api/ai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ exerciseName: exercise.name }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch AI Guidance");
+      }
+
+      const data = await response.json();
+      setAiGuidance(data.message);
+    } catch (err) {
+      console.log("error fetching ai guidance", err);
+      setAiGuidance("Sorry, there is an error getting ai guidance");
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -183,7 +210,50 @@ export default function ExerciseDetail() {
             </View>
           )}
 
-          {/* AI Assistance  */}
+          {/* AI Guidance  */}
+
+          {(aiGuidance || aiLoading) && (
+            <View className="mb-6">
+              <View className="flex-row items-center mb-3">
+                <Ionicons name="fitness" size={24} color="#3B82F6" />
+                <Text className="text-xl font-semibold text-gray-800 ml-2">
+                  AI coach says
+                </Text>
+              </View>
+              {aiLoading ? (
+                <View className="bg-gray-50 rounded-xl p-4 items-center">
+                  <ActivityIndicator size={"small"} />
+                  <Text>Getting personalized guidance</Text>
+                </View>
+              ) : (
+                <View className="bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
+                  <Markdown
+                    style={{
+                      body: {
+                        paddingBottom: 20,
+                      },
+                      heading2: {
+                        fontSize: 18,
+                        fontWeight: "bold",
+                        color: "#1f2937",
+                        marginTop: 12,
+                        marginBottom: 6,
+                      },
+                      heading3: {
+                        fontSize: 16,
+                        fontWeight: "600",
+                        color: "#374151",
+                        marginTop: 8,
+                        marginBottom: 4,
+                      },
+                    }}
+                  >
+                    {aiGuidance}
+                  </Markdown>
+                </View>
+              )}
+            </View>
+          )}
 
           {/* --- */}
 
@@ -199,7 +269,7 @@ export default function ExerciseDetail() {
                   ? "bg-green-500"
                   : "bg-blue-500"
               }`}
-              // onPress={getAiGuidance}
+              onPress={getAiGuidance}
               disabled={aiLoading}
             >
               {aiLoading ? (
@@ -210,8 +280,18 @@ export default function ExerciseDetail() {
                   </Text>
                 </View>
               ) : (
-                <Text>Hello</Text>
+                <Text className="text-white font-bold text-lg">
+                  {aiGuidance
+                    ? "Refresh AI Guidance"
+                    : "Get AI Guidance on Forms and Techniques"}
+                </Text>
               )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-gray-200 rounded-xl py-4 items-center"
+              onPress={() => router.back()}
+            >
+              <Text className="text-gray-800 font-bold text-lg">Close</Text>
             </TouchableOpacity>
           </View>
         </View>
