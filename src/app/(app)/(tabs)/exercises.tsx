@@ -21,7 +21,7 @@ export const exerciseQuery = defineQuery(`*[_type == "exercise"]{
   ...
   }`);
 
-export const getApi = "http://localhost:3000/api/v1/exercise";
+export const getApi = "http://localhost:3001/api/v1/exercise";
 
 const Exerceises = () => {
   const [searchQuery, setSearchQuery] = useState("");

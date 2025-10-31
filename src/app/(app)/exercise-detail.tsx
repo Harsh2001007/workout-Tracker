@@ -47,7 +47,7 @@ const singleExerciseQuery = defineQuery(
   `*[_type == "exercise" && _id == $id][0]`
 );
 
-const getApi = "http://localhost:3000/api/v1/exercise";
+const getApi = "http://localhost:3001/api/v1/exercise";
 
 export default function ExerciseDetail() {
   const router = useRouter();
@@ -67,7 +67,7 @@ export default function ExerciseDetail() {
 
     const fetchExercise = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/v1/exercise/${id}`);
+        const res = await fetch(`http://localhost:3001/api/v1/exercise/${id}`);
         const data = await res.json();
         console.log("Fetched Exercise Data:", data.result.videoUrl);
 
